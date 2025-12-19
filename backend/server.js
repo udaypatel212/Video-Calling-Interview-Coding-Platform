@@ -5,9 +5,9 @@ require('dotenv').config();  // to use environment variables from .env file
 
 const path = require('path');
 
-app.get('/', (req, res) => {
-  res.status(200).send('api is healthy ');
-});
+// app.get('/', (req, res) => {
+//   res.status(200).send('api is healthy ');
+// });
 
 app.get("/health", (req,res) => {
   res.status(200).send("Server is healthy");
