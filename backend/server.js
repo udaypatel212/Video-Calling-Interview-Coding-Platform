@@ -5,25 +5,29 @@ require('dotenv').config();  // to use environment variables from .env file
 
 const path = require('path');
 
-app.get('/health', (req, res) => {
+app.get('/', (req, res) => {
   res.status(200).send('api is healthy ');
 });
 
-if(process.env.NODE_ENV === 'production'){
-  app.use(express.static(path.join(__dirname,'../frontend/dist')));
-
-  app.get("/*", (req,res) => {
-    res.sendFile(path.join(__dirname,'../frontend/dist/index.html'));
-  });
-} 
+app.get("/health", (req,res) => {
+  res.status(200).send("Server is healthy");
+});
 
 // if(process.env.NODE_ENV === 'production'){
 //   app.use(express.static(path.join(__dirname,'../frontend/dist')));
 
-//   app.get("/{*any}", (req,res) => {
+//   app.get("/*", (req,res) => {
 //     res.sendFile(path.join(__dirname,'../frontend/dist/index.html'));
 //   });
 // } 
+
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static(path.join(__dirname,'../frontend/dist')));
+
+  app.get("/{*any}", (req,res) => {
+    res.sendFile(path.join(__dirname,'../frontend/dist/index.html'));
+  });
+} 
 
 app.listen(process.env.PORT || 5000, () => {
   console.log('Server is running on port', process.env.PORT || 5000);
