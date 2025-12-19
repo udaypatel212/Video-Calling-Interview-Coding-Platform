@@ -1,34 +1,36 @@
 const express = require('express');
-const app = express();
-require('dotenv').config();  // to use environment variables from .env file
-// we have to perform this in every file where we want to use process.env
-
+const connectDB = require('./src/lib/db');
+require('dotenv').config();
 const path = require('path');
 
-app.get('/', (req, res) => {
-  res.status(200).send('api is healthy ');
-});
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/health", (req,res) => {
+
+app.get("/health", (req, res) => {
   res.status(200).send("Server is healthy");
 });
 
-// if(process.env.NODE_ENV === 'production'){
-//   app.use(express.static(path.join(__dirname,'../frontend/dist')));
 
-//   app.get("/*", (req,res) => {
-//     res.sendFile(path.join(__dirname,'../frontend/dist/index.html'));
-//   });
-// } 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-if(process.env.NODE_ENV === 'production'){
-  app.use(express.static(path.join(__dirname,'../frontend/dist')));
-
-  app.get("/{*any}", (req,res) => {
-    res.sendFile(path.join(__dirname,'../frontend/dist/index.html'));
+  app.get("/{*any}", (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
   });
-} 
+}
 
-app.listen(process.env.PORT || 5000, () => {
-  console.log('Server is running on port', process.env.PORT || 5000);
-})
+const startServer = async () => {
+  try {
+    await connectDB();
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+      console.log(`✅ Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error(' ❌Failed to start server:', error);
+  }
+};
+
+startServer();
