@@ -3,10 +3,10 @@ const connectDB = require('./src/lib/db');
 require('dotenv').config();
 const path = require('path');
 
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 
 app.get("/health", (req, res) => {
   res.status(200).send("Server is healthy");
