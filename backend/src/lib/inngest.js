@@ -1,7 +1,7 @@
 require('dotenv').config();
 const connectDB = require("./db");
 const userModel = require("../models/userModel");
-
+const {upsertStreamUser, deleteStreamUser} = require("./stream");
 const { Inngest } = require("inngest");
 
 // Create a client to send and receive events
@@ -13,14 +13,22 @@ const syncUser = inngest.createFunction(
 
         await connectDB();
 
-        const { id, fist_name, last_name, image_url, created_at, email_addresses } = event.data;
+        const { id, first_name, last_name, image_url, created_at, email_addresses } = event.data;
 
         let user = await userModel.create({
-            name: `${fist_name || ""} ${last_name || ""}`,
+            name: `${first_name || ""} ${last_name || ""}`,
             email: email_addresses[0]?.email_address,
             profileImage: image_url || "",
             clerkId: id,
         })
+
+        await upsertStreamUser({
+            id: user.clerkId.toString(),
+            name: user.name,
+            image: user.profileImage,
+            email: user.email,
+        });
+
     });
 
 
@@ -33,6 +41,8 @@ const deleteUser = inngest.createFunction(
 
         const { id } = event.data;
         let deletedUser = await userModel.deleteOne({ clerkId: id });
+
+        await deleteStreamUser(id.toString());
 
     });
 
