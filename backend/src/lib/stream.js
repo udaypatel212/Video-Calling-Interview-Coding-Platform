@@ -1,4 +1,5 @@
 const StreamChat = require("stream-chat").StreamChat;
+
 require('dotenv').config();
 
 const api_key = process.env.STREAM_API_KEY;
