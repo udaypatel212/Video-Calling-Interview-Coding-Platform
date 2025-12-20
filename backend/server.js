@@ -2,11 +2,18 @@ const express = require('express');
 const connectDB = require('./src/lib/db');
 require('dotenv').config();
 const path = require('path');
-
+const cors = require('cors');
+const {serve} = require('inngest/express');
 
 const app = express();
 app.use(express.json());
+
+app.use(cors({origin:process.env.CLIENT_URL, credentials:true}));
+
 app.use(express.urlencoded({ extended: true }));
+ 
+app.use('/api/inngest', serve({client:"inngest",functions}));
+
 
 app.get("/health", (req, res) => {
   res.status(200).send("Server is healthy");
