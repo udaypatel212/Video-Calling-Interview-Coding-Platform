@@ -1,19 +1,21 @@
+require('dotenv').config();
+
 const express = require('express');
 const connectDB = require('./src/lib/db');
-require('dotenv').config();
 const path = require('path');
 const cors = require('cors');
-const {serve} = require('inngest/express');
-const {inngest, syncUser, deleteUser} = require('./src/lib/inngest');
-
 const app = express();
+const { serve } = require('inngest/express');
+const { inngest, syncUser, deleteUser } = require('./src/lib/inngest');
+const { clerkMiddleware } = require('@clerk/express');
+const  chatRoute=require('./src/routes/chatRoute');
 app.use(express.json());
-
-app.use(cors({origin:process.env.CLIENT_URL, credentials:true}));
-
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(clerkMiddleware()); // this adds auth field to req object : req.auth() this is working now 
 app.use(express.urlencoded({ extended: true }));
- 
-app.use("/api/inngest",serve({client: inngest,functions: [syncUser, deleteUser]}));
+app.use("/api/inngest", serve({ client: inngest, functions: [syncUser, deleteUser] }));
+
+app.use('/api/chat',chatRoute);
 
 app.get("/health", (req, res) => {
   res.status(200).send("Server is healthy");
@@ -41,3 +43,19 @@ const startServer = async () => {
 };
 
 startServer();
+
+
+
+
+
+
+
+
+
+
+// app.get("/videoCall", requireAuth(),(req, res) => {
+//   res.status(200).send("Video Call Endpoint");
+// });
+// app.get("/videoCall",protectRoute,(req, res) => {
+//   res.status(200).send("Video Call Endpoint");
+// });
