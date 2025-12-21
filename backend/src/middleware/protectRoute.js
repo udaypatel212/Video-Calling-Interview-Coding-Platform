@@ -24,5 +24,5 @@ const protectRoute=[requireAuth(),async (req,res,next)=>{ // this requireAuth re
 
 module.exports={protectRoute};
 
-//when you passes multiple middlewares in array format , they are executed in sequence.
+//  when you passes multiple middlewares in array format , they are executed in sequence.
 //  Here first requireAuth() runs, then the async function runs

@@ -13,6 +13,7 @@
   "type": "commonjs",
   "dependencies": {
     "@clerk/express": "^1.7.41",
+    "@stream-io/node-sdk": "^0.7.12",
     "bcrypt": "^6.0.0",
     "code-editor": "file:..",
     "cookie-parser": "^1.4.7",
