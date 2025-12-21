@@ -1,5 +1,5 @@
 const StreamChat = require("stream-chat").StreamChat;
-
+const { StreamClient } = require('@stream-io/node-sdk');
 require('dotenv').config();
 
 const api_key = process.env.STREAM_API_KEY;
@@ -9,7 +9,8 @@ if (!api_key || !api_secret) {
     console.error("❌ STREAM_API_KEY and STREAM_API_SECRET must be defined in environment variables");
 }
 
-const chatClient = StreamChat.getInstance(api_key, api_secret);
+const streamClient = new StreamClient(api_key, api_secret); //use for video call feature
+const chatClient = StreamChat.getInstance(api_key, api_secret);  //use for chat feature 
 
 const upsertStreamUser = async (userData) => {
     try {
@@ -27,6 +28,6 @@ const deleteStreamUser = async (userId) => {
         console.error("❌ Error deleting Stream user:", err);
     }
 }
-module.exports = { chatClient, upsertStreamUser, deleteStreamUser };
+module.exports = { chatClient, upsertStreamUser, deleteStreamUser, streamClient };
 
 //upsert means to insert a new user or update an existing user
