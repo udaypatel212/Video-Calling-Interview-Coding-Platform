@@ -2,7 +2,7 @@ import { Link, useNavigate, useLocation } from "react-router";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 
 import { PROBLEMS } from "../data/problems";
-import ProblemCard from "../components/problemCard.jsx";
+import ProblemCard from "../components/ProblemCard.jsx";
 
 export default function ProblemsPage() {
   const navigate = useNavigate();
