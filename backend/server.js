@@ -8,8 +8,8 @@ const app = express();
 const { serve } = require('inngest/express');
 const { inngest, syncUser, deleteUser } = require('./src/lib/inngest');
 const { clerkMiddleware } = require('@clerk/express');
-const  chatRoute=require('./src/routes/chatRoute');
-const sessionRoute=require('./src/routes/sessionRoute');
+const chatRoute = require('./src/routes/chatRoute');
+const sessionRoute = require('./src/routes/sessionRoute');
 
 app.use(express.json());
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
@@ -17,8 +17,8 @@ app.use(clerkMiddleware()); // this adds auth field to req object : req.auth() t
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/inngest", serve({ client: inngest, functions: [syncUser, deleteUser] }));
 
-app.use('/api/chat',chatRoute);
-app.use('/api/sessions',sessionRoute);
+app.use('/api/chat', chatRoute);
+app.use('/api/sessions', sessionRoute);
 app.get("/health", (req, res) => {
   res.status(200).send("Server is healthy");
 });
