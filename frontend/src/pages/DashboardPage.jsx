@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import {
   SignedIn,
   SignedOut,
@@ -15,12 +15,39 @@ const DashboardPage = () => {
     <div className="min-h-screen bg-base-100 text-base-content">
       {/* ================= NAVBAR ================= */}
       <div className="navbar sticky top-0 z-50 bg-base-100/80 backdrop-blur border-b border-base-300 px-6 lg:px-16">
-        <div className="flex-1">
+        {/* Left */}
+        <div className="flex-1 flex items-center gap-6">
           <Link to="/" className="text-2xl font-bold text-primary">
             TalentIQ
           </Link>
+
+          {/* Nav Links */}
+          <div className="hidden md:flex gap-2">
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                `btn btn-sm ${
+                  isActive ? "btn-primary" : "btn-ghost"
+                }`
+              }
+            >
+              Dashboard
+            </NavLink>
+
+            <NavLink
+              to="/problems"
+              className={({ isActive }) =>
+                `btn btn-sm ${
+                  isActive ? "btn-primary" : "btn-ghost"
+                }`
+              }
+            >
+              Problems
+            </NavLink>
+          </div>
         </div>
 
+        {/* Right */}
         <div className="flex items-center gap-3">
           <SignedOut>
             <SignInButton>
