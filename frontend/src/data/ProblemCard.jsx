@@ -34,7 +34,7 @@ export default function ProblemCard({ problem }) {
           </div>
 
           <Link
-            to={`/problems/${problem.id}`}
+            to={`/problem/${problem.id}`}
             className="btn btn-sm btn-success btn-outline"
           >
             Solve →
