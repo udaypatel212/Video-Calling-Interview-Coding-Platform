@@ -1,4 +1,4 @@
-const { sessionModel } = require('../models/sessionModel');
+const  sessionModel  = require('../models/sessionModel');
 const { streamClient, chatClient } = require('../lib/stream');
 
 

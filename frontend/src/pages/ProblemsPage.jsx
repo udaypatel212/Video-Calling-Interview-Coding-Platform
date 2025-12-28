@@ -1,5 +1,5 @@
 import { PROBLEMS } from "../data/problems";
-import ProblemCard from "../data/ProblemCard.jsx";
+import ProblemCard from "../util/ProblemCard.jsx";
 import Navbar from "../util/Navbar.jsx";
 
 export default function ProblemsPage() {
@@ -11,7 +11,7 @@ export default function ProblemsPage() {
     medium: problemsArray.filter(p => p.difficulty === "Medium").length,
     hard: problemsArray.filter(p => p.difficulty === "Hard").length,
   };
-
+  
   return (
     <>
       {/* ===== Navbar ===== */}

@@ -339,6 +339,265 @@ print(maxArea([1,1]))  # Expected: 1`,
       java: "49\n1",
     },
   },
+    "best-time-to-buy-sell-stock": {
+    id: "best-time-to-buy-sell-stock",
+    title: "Best Time to Buy and Sell Stock",
+    difficulty: "Easy",
+    category: "Array • Greedy",
+    description: {
+      text: "You are given an array prices where prices[i] is the price of a given stock on the ith day. Return the maximum profit you can achieve from one transaction.",
+      notes: ["You must buy before you sell.", "If no profit is possible, return 0."]
+    },
+    examples: [
+      {
+        input: "prices = [7,1,5,3,6,4]",
+        output: "5",
+        explanation: "Buy on day 2 (price = 1) and sell on day 5 (price = 6)."
+      }
+    ],
+    constraints: [
+      "1 ≤ prices.length ≤ 10⁵",
+      "0 ≤ prices[i] ≤ 10⁴"
+    ],
+    starterCode: {
+      javascript: `function maxProfit(prices) {
+  // Write your solution here
+  
+}
+
+// Test cases
+console.log(maxProfit([7,1,5,3,6,4])); // Expected: 5
+console.log(maxProfit([7,6,4,3,1])); // Expected: 0`,
+      python: `def maxProfit(prices):
+    # Write your solution here
+    pass
+
+# Test cases
+print(maxProfit([7,1,5,3,6,4]))  # Expected: 5
+print(maxProfit([7,6,4,3,1]))  # Expected: 0`,
+      java: `class Solution {
+    public static int maxProfit(int[] prices) {
+        // Write your solution here
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(maxProfit(new int[]{7,1,5,3,6,4})); // Expected: 5
+        System.out.println(maxProfit(new int[]{7,6,4,3,1})); // Expected: 0
+    }
+}`
+    },
+    expectedOutput: {
+      javascript: "5\n0",
+      python: "5\n0",
+      java: "5\n0"
+    }
+  },
+
+  "contains-duplicate": {
+    id: "contains-duplicate",
+    title: "Contains Duplicate",
+    difficulty: "Easy",
+    category: "Array • Hash Set",
+    description: {
+      text: "Given an integer array nums, return true if any value appears at least twice.",
+      notes: []
+    },
+    examples: [
+      { input: "nums = [1,2,3,1]", output: "true" }
+    ],
+    constraints: [
+      "1 ≤ nums.length ≤ 10⁵",
+      "-10⁹ ≤ nums[i] ≤ 10⁹"
+    ],
+    starterCode: {
+      javascript: `function containsDuplicate(nums) {
+  // Write your solution here
+  
+}
+
+// Test cases
+console.log(containsDuplicate([1,2,3,1])); // Expected: true
+console.log(containsDuplicate([1,2,3,4])); // Expected: false`,
+      python: `def containsDuplicate(nums):
+    # Write your solution here
+    pass
+
+# Test cases
+print(containsDuplicate([1,2,3,1]))  # Expected: True
+print(containsDuplicate([1,2,3,4]))  # Expected: False`,
+      java: `class Solution {
+    public static boolean containsDuplicate(int[] nums) {
+        // Write your solution here
+        return false;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(containsDuplicate(new int[]{1,2,3,1})); // true
+        System.out.println(containsDuplicate(new int[]{1,2,3,4})); // false
+    }
+}`
+    },
+    expectedOutput: {
+      javascript: "true\nfalse",
+      python: "True\nFalse",
+      java: "true\nfalse"
+    }
+  },
+
+  "merge-sorted-array": {
+    id: "merge-sorted-array",
+    title: "Merge Sorted Array",
+    difficulty: "Easy",
+    category: "Array • Two Pointers",
+    description: {
+      text: "Merge two sorted arrays nums1 and nums2 into nums1 as one sorted array.",
+      notes: ["nums1 has enough space to hold additional elements."]
+    },
+    examples: [
+      {
+        input: "nums1 = [1,2,3,0,0,0], nums2 = [2,5,6]",
+        output: "[1,2,2,3,5,6]"
+      }
+    ],
+    constraints: [
+      "0 ≤ m, n ≤ 200"
+    ],
+    starterCode: {
+      javascript: `function merge(nums1, m, nums2, n) {
+  // Write your solution here
+  
+}
+
+// Test cases
+let nums1 = [1,2,3,0,0,0];
+merge(nums1, 3, [2,5,6], 3);
+console.log(nums1); // Expected: [1,2,2,3,5,6]`,
+      python: `def merge(nums1, m, nums2, n):
+    # Write your solution here
+    pass
+
+# Test cases
+nums1 = [1,2,3,0,0,0]
+merge(nums1, 3, [2,5,6], 3)
+print(nums1)  # Expected: [1,2,2,3,5,6]`,
+      java: `import java.util.*;
+
+class Solution {
+    public static void merge(int[] nums1, int m, int[] nums2, int n) {
+        // Write your solution here
+    }
+
+    public static void main(String[] args) {
+        int[] nums1 = {1,2,3,0,0,0};
+        merge(nums1, 3, new int[]{2,5,6}, 3);
+        System.out.println(Arrays.toString(nums1)); // [1,2,2,3,5,6]
+    }
+}`
+    },
+    expectedOutput: {
+      javascript: "[1,2,2,3,5,6]",
+      python: "[1, 2, 2, 3, 5, 6]",
+      java: "[1, 2, 2, 3, 5, 6]"
+    }
+  },
+
+  "climbing-stairs": {
+    id: "climbing-stairs",
+    title: "Climbing Stairs",
+    difficulty: "Easy",
+    category: "Dynamic Programming",
+    description: {
+      text: "You can climb 1 or 2 steps. Return number of distinct ways to reach the top.",
+      notes: []
+    },
+    examples: [
+      { input: "n = 3", output: "3" }
+    ],
+    constraints: ["1 ≤ n ≤ 45"],
+    starterCode: {
+      javascript: `function climbStairs(n) {
+  // Write your solution here
+  
+}
+
+// Test cases
+console.log(climbStairs(2)); // Expected: 2
+console.log(climbStairs(3)); // Expected: 3`,
+      python: `def climbStairs(n):
+    # Write your solution here
+    pass
+
+# Test cases
+print(climbStairs(2))  # Expected: 2
+print(climbStairs(3))  # Expected: 3`,
+      java: `class Solution {
+    public static int climbStairs(int n) {
+        // Write your solution here
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(climbStairs(2)); // 2
+        System.out.println(climbStairs(3)); // 3
+    }
+}`
+    },
+    expectedOutput: {
+      javascript: "2\n3",
+      python: "2\n3",
+      java: "2\n3"
+    }
+  },
+
+  "valid-anagram": {
+    id: "valid-anagram",
+    title: "Valid Anagram",
+    difficulty: "Easy",
+    category: "String • Hash Table",
+    description: {
+      text: "Return true if t is an anagram of s.",
+      notes: []
+    },
+    examples: [
+      { input: 's = "anagram", t = "nagaram"', output: "true" }
+    ],
+    constraints: ["1 ≤ s.length, t.length ≤ 5 * 10⁴"],
+    starterCode: {
+      javascript: `function isAnagram(s, t) {
+  // Write your solution here
+  
+}
+
+// Test cases
+console.log(isAnagram("anagram", "nagaram")); // Expected: true
+console.log(isAnagram("rat", "car")); // Expected: false`,
+      python: `def isAnagram(s, t):
+    # Write your solution here
+    pass
+
+# Test cases
+print(isAnagram("anagram", "nagaram"))  # True
+print(isAnagram("rat", "car"))  # False`,
+      java: `class Solution {
+    public static boolean isAnagram(String s, String t) {
+        // Write your solution here
+        return false;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isAnagram("anagram", "nagaram")); // true
+        System.out.println(isAnagram("rat", "car")); // false
+    }
+}`
+    },
+    expectedOutput: {
+      javascript: "true\nfalse",
+      python: "True\nFalse",
+      java: "true\nfalse"
+    }
+  },
+
 };
 
 export const LANGUAGE_CONFIG = {

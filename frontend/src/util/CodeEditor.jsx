@@ -1,8 +1,50 @@
-import React from 'react'
+import React from "react";
+import CodeMirror from "@uiw/react-codemirror";
+import { javascript } from "@codemirror/lang-javascript";
+import { python } from "@codemirror/lang-python";
+import { java } from "@codemirror/lang-java";
+import { oneDark } from "@codemirror/theme-one-dark";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 
-function CodeEditor({language, setLanguage, code, setCode, output, setOutput, status, setStatus, runCode, loading}) {
+
+function CodeEditor({
+    language,
+    setLanguage,
+    code,
+    setCode,
+    output,
+    status,
+    runCode,
+    loading,
+}) {
+    
+    useEffect(() => {
+      if (status === "success") {
+        toast.success("Accepted ✅ All test cases passed!");
+      }
+      if (status === "wrong") {
+        toast.error("Wrong Answer ❌");
+      }
+      if (status === "error") {
+        toast.error("Runtime Error ⚠");
+      }
+    }, [status]);
+
+    const getLanguageExtension = () => {
+        switch (language) {
+            case "python":
+                return python();
+            case "java":
+                return java();
+            default:
+                return javascript();
+        }
+    };
+
     return (
         <div className="bg-base-200 rounded-xl p-5 shadow flex flex-col">
+            {/* Header */}
             <div className="flex justify-between mb-2">
                 <select
                     className="select select-bordered select-sm"
@@ -23,30 +65,35 @@ function CodeEditor({language, setLanguage, code, setCode, output, setOutput, st
                 </button>
             </div>
 
-            <textarea
-                className="textarea textarea-bordered flex-1 font-mono text-sm resize"
-                style={{ minHeight: "300px", width: "680px" }}
-                value={code}
-                disabled={loading}
-                onChange={(e) => setCode(e.target.value)}
-            />
-
-
-            <div className="mt-3 bg-black text-green-400 p-3 rounded h-32 overflow-auto text-sm">
-                {output || "Click Run Code to see output..."}
+            {/* Code Editor */}
+            <div className="border rounded-md overflow-hidden">
+                <CodeMirror
+                    value={code}
+                    height="300px"
+                    theme={oneDark}
+                    extensions={[getLanguageExtension()]}
+                    onChange={(value) => setCode(value)}
+                    editable={!loading}
+                />
             </div>
 
+            {/* Output */}
+            <div className="mt-3 bg-black text-green-400 p-3 rounded h-32 overflow-auto text-sm">
+                {output || "➡️ Click Run Code to see output..."}
+            </div>
+
+            {/* Status */}
             {status === "success" && (
                 <div className="alert alert-success mt-2">✅ Accepted</div>
             )}
             {status === "wrong" && (
-                <div className="alert alert-warning mt-2">❌ Wrong Answer</div>
+                <div className="alert alert-warning mt-2" >❌ Wrong Answer</div>
             )}
             {status === "error" && (
                 <div className="alert alert-error mt-2">⚠ Runtime Error</div>
             )}
         </div>
-    )
+    );
 }
 
-export default CodeEditor
+export default CodeEditor;
