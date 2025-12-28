@@ -5,7 +5,7 @@ import ProblemsPage from './pages/ProblemsPage.jsx';
 import ProblemPage from './pages/ProblemPage.jsx';
 import { Toaster } from 'react-hot-toast';
 import { useUser } from '@clerk/clerk-react';
-
+import SessionPage from './pages/SessionPage.jsx'
 function App() {
   const { isSignedIn, isLoaded } = useUser();
   if (!isLoaded) return null;
@@ -16,6 +16,7 @@ function App() {
         <Route path='/problems' element={isSignedIn ? <ProblemsPage /> : <Navigate to={"/"} />} />
         <Route path='/problem/:id' element={isSignedIn ? <ProblemPage /> : <Navigate to={"/"} />} />
         <Route path='/dashboard' element={isSignedIn ? <DashboardPage /> : <Navigate to={"/"} />} />
+        <Route path='/session/:pid' element={isSignedIn ? <SessionPage /> : <Navigate to={"/"} />} />
       </Routes>
       <Toaster toastOptions={{ duration: 1500 }} />
     </>

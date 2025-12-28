@@ -23,8 +23,8 @@ export default function CreateSessionModal({ onClose }) {
         onSuccess: (data) => {
             queryClient.invalidateQueries(["activeSessions"]);
             onClose();
-            // navigate(`/session/${data._id}`);
-            navigate(`/dashboard`);
+            navigate(`/session/${data.session._id}`);
+        
         },
     });
 

@@ -6,9 +6,12 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { sessionAPI } from "../api/sessions.js";
 import { useState } from "react";
 import CreateSessionModal from "./CreateSessionModal";
+import { useNavigate } from "react-router";
 
 const DashboardPage = () => {
   const { user } = useUser();
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
 
   const { data: activeSessiondata } = useQuery({
@@ -22,6 +25,26 @@ const DashboardPage = () => {
     queryFn: sessionAPI.getMyRecentSessions
   });
   const displayRS = recentSessiondata?.recentSessions ?? [];
+
+  const [countSession, setCountSession] = useState(0);
+
+  useEffect(() => {
+    if (!user?.id) return;
+
+    const count = displayRS.filter(
+      (session) =>
+        session.host?.clerkId === user.id ||
+        session.participant?.clerkId === user.id
+    ).length;
+
+    const count2 = displayAS.filter(
+      (session) =>
+        session.host?.clerkId === user.id ||
+        session.participant?.clerkId === user.id
+    ).length;
+
+    setCountSession(count + count2);
+  }, [displayRS, user?.id]);
 
   return (
     <div className="min-h-screen bg-base-100 text-base-content">
@@ -63,7 +86,7 @@ const DashboardPage = () => {
           <div className="card bg-base-200 border border-base-300">
             <div className="card-body">
               <h2 className="card-title">🏆 Total Sessions</h2>
-              <p className="text-4xl font-bold mt-2">{displayAS.length + displayRS.length}</p>
+              <p className="text-4xl font-bold mt-2">{countSession}</p>
             </div>
           </div>
         </div>
@@ -71,49 +94,56 @@ const DashboardPage = () => {
         {/* Live Sessions */}
         <div className="card bg-base-200 border border-base-300">
           <div className="card-body">
+
+            {/* Header */}
             <div className="flex items-center justify-between">
               <h2 className="card-title">🟢 Live Sessions</h2>
-              <span className="text-2xl text-amber-700 ">{displayAS.length}</span>
+              <span className="text-2xl text-amber-700">
+                {displayAS.length}
+              </span>
             </div>
 
-            {displayAS.length === 0 ? (
-              <p className="text-sm opacity-60">No active sessions</p>
-            ) : (
-              displayAS.map((session) => (
-                <div
-                  key={session._id}
-                  className="mt-4 flex items-center justify-between bg-base-100 p-4 rounded-xl border border-base-300"
-                >
-                  <div>
-                    <p className="font-semibold">
-                      {session.problem}
-
-                      <span
-                        className={`badge badge-sm ml-2 ${session.difficulty === "easy"
-                            ? "badge-success"
-                            : session.difficulty === "medium"
-                              ? "badge-warning"
-                              : "badge-error"
-                          }`}
-                      >
-                        {session.difficulty?.toUpperCase()}
-                      </span>
-                    </p>
-
-                    <p className="text-sm opacity-70">
-                      Host: {session.host?.name || "You"}
-                    </p>
-                  </div>
-
-                  <button
-                    className="btn btn-outline btn-primary btn-sm"
-                    onClick={() => navigate(`/session/${session._id}`)}
+            {/* Scrollable List */}
+            <div className="max-h-[360px] overflow-y-auto pr-2">
+              {displayAS.length === 0 ? (
+                <p className="text-sm opacity-60">No active sessions</p>
+              ) : (
+                displayAS.map((session) => (
+                  <div
+                    key={session._id}
+                    className="mt-4 flex items-center justify-between bg-base-100 p-4 rounded-xl border border-base-300"
                   >
-                    Rejoin →
-                  </button>
-                </div>
-              ))
-            )}
+                    <div>
+                      <p className="font-semibold">
+                        {session.problem}
+                        <span
+                          className={`badge badge-sm ml-2 ${session.difficulty === "easy"
+                              ? "badge-success"
+                              : session.difficulty === "medium"
+                                ? "badge-warning"
+                                : "badge-error"
+                            }`}
+                        >
+                          {session.difficulty?.toUpperCase()}
+                        </span>
+                      </p>
+
+                      <p className="text-sm opacity-70">
+                        Host: {session.host?.name || "You"}
+                      </p>
+                    </div>
+
+                    <button
+                      className="btn btn-outline btn-primary btn-sm"
+                      onClick={() => navigate(`/session/${session._id}`)}
+                    >
+                      Rejoin →
+                    </button>
+                  </div>
+                ))
+              )}
+            </div>
+
           </div>
         </div>
 
