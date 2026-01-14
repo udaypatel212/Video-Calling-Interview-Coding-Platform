@@ -12,13 +12,12 @@ difficulty:{
 },
 host:{
     type:mongoose.Schema.Types.ObjectId,
-    ref:'User',
+    ref:'user',
     required:true
 },
 participant:[{
-
     type:mongoose.Schema.Types.ObjectId,
-    ref:'User',
+    ref:'user',
     default :null
 }],
 status:{
@@ -33,4 +32,4 @@ callId:{
 },{timestamps:true});
 
 
-module.exports=mongoose.model('Session',sessionSchema);
+module.exports=mongoose.model('session',sessionSchema);

@@ -131,6 +131,7 @@ module.exports.getSessionById = async (req, res) => {
         if (!session) {
             return res.status(404).json({ message: "Session not found" });
         }
+        console.log("hey this controller runs !! ");
         return res.status(200).json({ session });
     } catch (err) {
         console.error("❌ Error in getSessionById controller:", err);

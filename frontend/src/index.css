@@ -2,3 +2,24 @@
 @plugin "daisyui"{
   theme: "forest",
 } ;
+
+@import "@stream-io/video-react-sdk/dist/css/styles.css";
+/* 🔧 FIX Stream Video icon visibility */
+
+/* Stream Video Controls FIX */
+.str-video {
+  --str-video-primary-color: #22c55e;
+}
+
+.str-video svg {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
+.str-video__button {
+  color: white !important;
+}
+
+.str-video__controls {
+  background: rgba(0, 0, 0, 0.65);
+}
